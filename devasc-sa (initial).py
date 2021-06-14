@@ -26,26 +26,17 @@
 
 # 1. Import libraries for API requests, JSON formatting, and epoch time conversion.
 
-import requests
-import json
-import time
+<!!!REPLACEME with code for libraries>
 
 # 2. Complete the if statement to ask the user for the Webex access token.
 choice = input("Do you wish to use the hard-coded Webex token? (y/n) ")
 
-if choice == "y":
-    print('OK, we\'ll go with the hard-coded token.')
-    accessToken = "Bearer NmIyMTk0OWItM2EwNi00ODU0LTgxN2ItMGQxYzhiYTY3ZTgwYzZiZWFmNjYtMmZi_PF84_consumer"
-
-elif choice == "n":
-    print('This will not have the desired outcome.')
-    quit()  
-
+<!!!REPLACEME with if statements to ask user for the Webex Teams Access Token!!!>
 else:
-	accessToken = "Bearer NmIyMTk0OWItM2EwNi00ODU0LTgxN2ItMGQxYzhiYTY3ZTgwYzZiZWFmNjYtMmZi_PF84_consumer"
+	accessToken = "Bearer <!!!REPLACEME with hard-coded token!!!>"
 
 # 3. Provide the URL to the Webex Teams room API.
-r = requests.get(   url = "https://webexapis.com/v1/rooms",
+r = requests.get(   "<!!!REPLACEME with URL!!!>",
                     headers = {"Authorization": accessToken}
                 )
 
@@ -59,7 +50,7 @@ if not r.status_code == 200:
 print("List of rooms:")
 rooms = r.json()["items"]
 for room in rooms:
-    print(room['title'] + " - " + room['type'])
+    <!!!REPLACEME with print code to finish the loop>
 
 #######################################################################################
 # SEARCH FOR WEBEX TEAMS ROOM TO MONITOR
@@ -100,7 +91,7 @@ while True:
                             "max": 1
                     }
 # 5. Provide the URL to the Webex Teams messages API.
-    r = requests.get("https://webexapis.com/v1/messages", 
+    r = requests.get("<!!!REPLACEME with URL!!!>", 
                          params = GetParameters, 
                          headers = {"Authorization": accessToken}
                     )
@@ -121,10 +112,10 @@ while True:
 # 6. Provide your MapQuest API consumer key.
         mapsAPIGetParameters = { 
                                 "location": location, 
-                                "key": "5Mc53HQxNjw8xcAP63PMlVA5tJRNPePP"
+                                "key": "<!!!REPLACEME with your MapQuest API Key!!!>"
                                }
 # 7. Provide the URL to the MapQuest address API.
-        r = requests.get("https://www.mapquestapi.com/geocoding/v1/address", 
+        r = requests.get("<!!!REPLACEME with URL!!!>", 
                              params = mapsAPIGetParameters
                         )
         json_data = r.json()
@@ -136,16 +127,18 @@ while True:
         print("Location: " + locationResults)
 		
 # 8. Provide the MapQuest key values for latitude and longitude.
-        locationLat = json_data["results"][0]["locations"]["latLng"]["lat"]
-        locationLng = json_data["results"][0]["locations"]["latLng"]["lng"]
+        locationLat = json_data["<!!!REPLACEME!!!> with path to latitude key!!!>"]
+        locationLng = json_data["<!!!REPLACEME!!!> with path to longitude key!!!>"]
         print("Location GPS coordinates: " + str(locationLat) + ", " + str(locationLng))
         
         issAPIGetParameters = { 
                                 "lat": locationLat, 
                                 "lon": locationLng
                               }
-# 9. Provide the URL to the ISS pass times API. -> doesn't exist anymore, replaced with ISS Current Location.
-        r = requests.get("http://open-notify.org/Open-Notify-API/ISS-Location-Now")
+# 9. Provide the URL to the ISS pass times API.
+        r = requests.get("<!!!REPLACEME with URL!!!>", 
+                             params = issAPIGetParameters
+                        )
 
         json_data = r.json()
 
@@ -157,27 +150,27 @@ while True:
         durationInSeconds      = json_data["<!!!REPLACEME!!!> with path to duration key!!!>"]
 
 # 11. Convert the risetime epoch value to a human readable date and time.
-        risetimeInFormattedString = time.strftime("%d-%m-%Y %H:%M:%S", time.gmtime(risetimeInEpochSeconds))
+        risetimeInFormattedString = <!!!REPLACEME with conversion code!!!>
 
 # 12. Complete the code to format the response message.
 #     Example responseMessage result: In Austin, Texas the ISS will fly over on Thu Jun 18 18:42:36 2020 for 242 seconds.
-        responseMessage = "In {} the ISS will fly over on {} for {} seconds.".format(locationResults, risetimeInFormattedString, durationInSeconds)
+        responseMessage = "In {} the ISS will fly over on {} for {} seconds.".format(<!!!REPLACEME with required variables!!!>)
 
         print("Sending to Webex Teams: " +responseMessage)
 
 # 13. Complete the code to post the message to the Webex Teams room.            
         HTTPHeaders = { 
-                             "Authorization": accessToken,
+                             "Authorization": <!!!REPLACEME!!!>,
                              "Content-Type": "application/json"
                            }
         PostData = {
-                            "roomId": roomIdToGetMessages,
-                            "text": responseMessage
+                            "roomId": <!!!REPLACEME!!!>,
+                            "text": <!!!REPLACEME!!!>
                         }
 
-        r = requests.post(    "https://webexapis.com/v1/messages", 
-                              data = json.dumps(PostData), 
-                              headers = {'Authorization': accessToken, 'Content-Type': 'application/json'}
+        r = requests.post( "<!!!REPLACEME with URL!!!>", 
+                              data = json.dumps(<!!!REPLACEME!!!>), 
+                              headers = <!!!REPLACEME!!!>
                          )
         if not r.status_code == 200:
             raise Exception("Incorrect reply from Webex Teams API. Status code: {}. Text: {}".format(r.status_code, r.text))
