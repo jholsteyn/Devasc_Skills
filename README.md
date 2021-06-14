@@ -16,5 +16,5 @@ had a typo in my repo name with git remote add
 git remote rm origin
 git remote add origin again
 Verification :
-Check with rit config --list and git remote -v
+Check with git config --list and git remote -v
 ll to see if .gitignore and a README.md were locally present.
