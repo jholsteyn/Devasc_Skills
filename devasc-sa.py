@@ -35,14 +35,14 @@ choice = input("Do you wish to use the hard-coded Webex token? (y/n) ")
 
 if choice == "y":
     print('OK, we\'ll go with the hard-coded token.')
-    accessToken = "Bearer NmIyMTk0OWItM2EwNi00ODU0LTgxN2ItMGQxYzhiYTY3ZTgwYzZiZWFmNjYtMmZi_PF84_consumer"
+    accessToken = "Bearer Mjk3NWE2YTMtZGMxNy00ZTZjLTk0ZWItMDRkYzY2MzJlMDkzODliODYwMTktY2Q4_PF84_consumer"
 
 elif choice == "n":
     print('This will not have the desired outcome.')
     quit()  
 
 else:
-	accessToken = "Bearer NmIyMTk0OWItM2EwNi00ODU0LTgxN2ItMGQxYzhiYTY3ZTgwYzZiZWFmNjYtMmZi_PF84_consumer"
+	accessToken = "Bearer Mjk3NWE2YTMtZGMxNy00ZTZjLTk0ZWItMDRkYzY2MzJlMDkzODliODYwMTktY2Q4_PF84_consumer"
 
 # 3. Provide the URL to the Webex Teams room API.
 r = requests.get(   url = "https://webexapis.com/v1/rooms",
@@ -136,8 +136,8 @@ while True:
         print("Location: " + locationResults)
 		
 # 8. Provide the MapQuest key values for latitude and longitude.
-        locationLat = json_data["results"][0]["locations"]["latLng"]["lat"]
-        locationLng = json_data["results"][0]["locations"]["latLng"]["lng"]
+        locationLat = json_data["results"][0]["locations"][0]["latLng"]["lat"]
+        locationLng = json_data["results"][0]["locations"][0]["latLng"]["lng"]
         print("Location GPS coordinates: " + str(locationLat) + ", " + str(locationLng))
         
         issAPIGetParameters = { 
